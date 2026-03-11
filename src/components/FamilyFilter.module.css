@@ -1,0 +1,15 @@
+.wrapper {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+}
+
+@media (max-width: 640px) {
+  .wrapper {
+    width: 100%;
+  }
+
+  .wrapper > * {
+    flex: 1;
+  }
+}

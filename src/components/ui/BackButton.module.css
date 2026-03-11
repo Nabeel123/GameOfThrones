@@ -1,0 +1,30 @@
+.button {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-4);
+  color: var(--color-gold);
+  font-family: var(--font-ui);
+  font-size: var(--text-sm);
+  font-weight: 500;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background-color: var(--color-surface);
+  transition:
+    background-color var(--transition-fast),
+    border-color var(--transition-fast),
+    color var(--transition-fast);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.button:hover {
+  background-color: var(--color-surface-hover);
+  border-color: var(--color-gold);
+  color: var(--color-gold-light);
+}
+
+.arrow {
+  font-size: var(--text-lg);
+  line-height: 1;
+}
