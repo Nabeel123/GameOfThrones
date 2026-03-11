@@ -14,7 +14,7 @@ export function PageHeader({ children }: PageHeaderProps) {
           <p className={styles.subtitle}>Family Inspector</p>
         </Link>
       </div>
-      {children != null && <div>{children}</div>}
+      {children != null && <div className={styles.filterSlot}>{children}</div>}
     </header>
   )
 }
