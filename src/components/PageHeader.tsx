@@ -11,7 +11,6 @@ export function PageHeader({ children }: PageHeaderProps) {
       <div>
         <Link to="/" className={styles.titleLink}>
           <h1 className={styles.title}>Game of Thrones</h1>
-          <p className={styles.subtitle}>Family Inspector</p>
         </Link>
       </div>
       {children != null && <div className={styles.filterSlot}>{children}</div>}
