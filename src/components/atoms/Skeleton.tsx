@@ -1,3 +1,4 @@
+import { classNames } from '@/utils/classNames'
 import styles from './Skeleton.module.css'
 
 interface SkeletonProps {
@@ -17,7 +18,7 @@ export function Skeleton({
     <span
       role="presentation"
       aria-hidden="true"
-      className={[styles.skeleton, styles[variant], className].filter(Boolean).join(' ')}
+      className={classNames(styles.skeleton, styles[variant], className)}
       style={{ width, height }}
     />
   )

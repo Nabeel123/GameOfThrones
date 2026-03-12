@@ -8,12 +8,6 @@
   gap: var(--space-4);
 }
 
-.skeletonGrid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-  gap: var(--space-4);
-}
-
 .skeletonCard {
   aspect-ratio: 3 / 4;
   border-radius: var(--radius-md);
@@ -30,16 +24,14 @@
 }
 
 @media (max-width: 640px) {
-  .grid,
-  .skeletonGrid {
+  .grid {
     grid-template-columns: repeat(2, 1fr);
     gap: var(--space-3);
   }
 }
 
 @media (min-width: 641px) and (max-width: 1024px) {
-  .grid,
-  .skeletonGrid {
+  .grid {
     grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
   }
 }

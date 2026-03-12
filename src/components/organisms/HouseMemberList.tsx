@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
-import { SafeImage } from './ui/SafeImage'
-import { Skeleton } from './ui/Skeleton'
+import { SafeImage } from '../atoms/SafeImage'
+import { Skeleton } from '../atoms/Skeleton'
+import { ErrorMessage } from '../atoms/ErrorMessage'
 import { useHouseMembers } from '@/hooks/useHouseMembers'
 import { UNKNOWN_FAMILY } from '@/utils/constants'
 import styles from './HouseMemberList.module.css'
@@ -11,14 +12,21 @@ interface HouseMemberListProps {
 }
 
 export function HouseMemberList({ family, excludeId }: HouseMemberListProps) {
-  const { houseMembers, isLoading } = useHouseMembers(family, excludeId)
+  const { houseMembers, isLoading, isError } = useHouseMembers(family, excludeId)
   const displayFamily = family || UNKNOWN_FAMILY
 
   return (
     <section className={styles.section} aria-label={`Members of ${displayFamily}`}>
-      <h3 className={styles.heading}>Family — {displayFamily}</h3>
+      <h3 className={styles.heading}>
+        Family — {displayFamily}
+        {!isLoading && houseMembers.length > 0 && (
+          <span className={styles.headingBadge}>{houseMembers.length + 1}</span>
+        )}
+      </h3>
 
-      {isLoading ? (
+      {isError ? (
+        <ErrorMessage message="Failed to load house members." />
+      ) : isLoading ? (
         <div className={styles.scrollContainer} role="status" aria-label="Loading house members">
           <div className={styles.memberList}>
             {Array.from({ length: 3 }).map((_, i) => (

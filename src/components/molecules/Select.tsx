@@ -1,4 +1,6 @@
-import { useEffect, useRef, useState } from 'react'
+import { useRef, useState } from 'react'
+import { useClickOutside } from '@/hooks/useClickOutside'
+import { classNames } from '@/utils/classNames'
 import styles from './Select.module.css'
 
 interface SelectProps {
@@ -8,28 +10,22 @@ interface SelectProps {
   options: string[]
   onChange: (value: string) => void
   className?: string
+  optionCounts?: Record<string, number>
 }
 
-export function Select({ id, label, value, options, onChange, className }: SelectProps) {
+export function Select({
+  id,
+  label,
+  value,
+  options,
+  onChange,
+  className,
+  optionCounts,
+}: SelectProps) {
   const [isOpen, setIsOpen] = useState(false)
   const wrapperRef = useRef<HTMLDivElement>(null)
 
-  useEffect(() => {
-    function handleClickOutside(e: MouseEvent) {
-      if (wrapperRef.current && !wrapperRef.current.contains(e.target as Node)) {
-        setIsOpen(false)
-      }
-    }
-    function handleKeyDown(e: KeyboardEvent) {
-      if (e.key === 'Escape') setIsOpen(false)
-    }
-    document.addEventListener('mousedown', handleClickOutside)
-    document.addEventListener('keydown', handleKeyDown)
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside)
-      document.removeEventListener('keydown', handleKeyDown)
-    }
-  }, [])
+  useClickOutside(wrapperRef, () => setIsOpen(false))
 
   function handleSelect(option: string) {
     onChange(option)
@@ -37,7 +33,7 @@ export function Select({ id, label, value, options, onChange, className }: Selec
   }
 
   return (
-    <div ref={wrapperRef} className={[styles.wrapper, className].filter(Boolean).join(' ')}>
+    <div ref={wrapperRef} className={classNames(styles.wrapper, className)}>
       <label id={`${id}-label`} className={styles.label}>
         {label}
       </label>
@@ -53,7 +49,7 @@ export function Select({ id, label, value, options, onChange, className }: Selec
       >
         <span className={styles.triggerText}>{value}</span>
         <svg
-          className={[styles.chevron, isOpen ? styles.chevronOpen : ''].filter(Boolean).join(' ')}
+          className={classNames(styles.chevron, isOpen ? styles.chevronOpen : undefined)}
           xmlns="http://www.w3.org/2000/svg"
           width="16"
           height="16"
@@ -65,22 +61,28 @@ export function Select({ id, label, value, options, onChange, className }: Selec
         </svg>
       </button>
       {isOpen && (
-        <ul
-          role="listbox"
-          aria-labelledby={`${id}-label`}
-          className={styles.dropdown}
-        >
+        <ul role="listbox" aria-labelledby={`${id}-label`} className={styles.dropdown}>
           {options.map(option => (
             <li
               key={option}
               role="option"
               aria-selected={option === value}
-              className={[styles.option, option === value ? styles.optionSelected : ''].filter(Boolean).join(' ')}
+              className={classNames(
+                styles.option,
+                option === value ? styles.optionSelected : undefined
+              )}
               onClick={() => handleSelect(option)}
-              onKeyDown={e => { if (e.key === 'Enter' || e.key === ' ') handleSelect(option) }}
+              onKeyDown={e => {
+                if (e.key === 'Enter' || e.key === ' ') handleSelect(option)
+              }}
               tabIndex={0}
             >
-              {option}
+              <span>{option}</span>
+              {optionCounts?.[option] != null && (
+                <span className={styles.badge} aria-label={`${optionCounts[option]} members`}>
+                  {optionCounts[option]}
+                </span>
+              )}
             </li>
           ))}
         </ul>

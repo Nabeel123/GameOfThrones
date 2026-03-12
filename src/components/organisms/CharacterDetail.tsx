@@ -1,4 +1,4 @@
-import { SafeImage } from './ui/SafeImage'
+import { SafeImage } from '../atoms/SafeImage'
 import type { Character } from '@/types/character'
 import styles from './CharacterDetail.module.css'
 

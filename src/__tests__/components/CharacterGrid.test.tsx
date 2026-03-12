@@ -2,7 +2,7 @@ import { describe, it, expect } from 'vitest'
 import { screen, render } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { MemoryRouter } from 'react-router-dom'
-import { CharacterGrid } from '@/components/CharacterGrid'
+import { CharacterGrid } from '@/components/organisms/CharacterGrid'
 import { mockCharacters } from '@/utils/mockData'
 
 function renderGrid(props: React.ComponentProps<typeof CharacterGrid>) {

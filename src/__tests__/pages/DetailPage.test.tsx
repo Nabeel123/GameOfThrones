@@ -53,7 +53,7 @@ describe('DetailPage', () => {
   it('shows back button linking to home', async () => {
     renderDetailPage(1)
     await waitFor(() => expect(screen.getByText('Eddard Stark')).toBeInTheDocument())
-    const backLink = screen.getByRole('link', { name: /back to all characters/i })
+    const backLink = screen.getByRole('link', { name: /all characters/i })
     expect(backLink).toHaveAttribute('href', '/')
   })
 
@@ -78,9 +78,7 @@ describe('DetailPage', () => {
   })
 
   it('shows error message when API call fails', async () => {
-    server.use(
-      http.get(CHARACTERS_ENDPOINT, () => new HttpResponse(null, { status: 500 }))
-    )
+    server.use(http.get(CHARACTERS_ENDPOINT, () => new HttpResponse(null, { status: 500 })))
     renderDetailPage(1)
     await waitFor(
       () => {

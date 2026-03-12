@@ -23,15 +23,6 @@
   letter-spacing: 0.02em;
 }
 
-.subtitle {
-  font-family: var(--font-ui);
-  font-size: var(--text-sm);
-  color: var(--color-text-secondary);
-  margin-top: var(--space-1);
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-}
-
 .filterSlot {
   display: flex;
   align-items: center;

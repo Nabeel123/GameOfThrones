@@ -1,6 +1,6 @@
-import { CharacterCard } from './CharacterCard'
-import { Skeleton } from './ui/Skeleton'
-import { ErrorMessage } from './ui/ErrorMessage'
+import { CharacterCard } from '../molecules/CharacterCard'
+import { Skeleton } from '../atoms/Skeleton'
+import { ErrorMessage } from '../atoms/ErrorMessage'
 import type { Character } from '@/types/character'
 import styles from './CharacterGrid.module.css'
 
@@ -9,28 +9,27 @@ interface CharacterGridProps {
   isLoading: boolean
   isError: boolean
   onRetry?: () => void
+  errorMessage?: string
 }
 
 const SKELETON_COUNT = 12
+const DEFAULT_ERROR_MESSAGE =
+  'Failed to load characters. Please check your connection and try again.'
 
-export function CharacterGrid({ characters, isLoading, isError, onRetry }: CharacterGridProps) {
+export function CharacterGrid({
+  characters,
+  isLoading,
+  isError,
+  onRetry,
+  errorMessage = DEFAULT_ERROR_MESSAGE,
+}: CharacterGridProps) {
   if (isError) {
-    return (
-      <ErrorMessage
-        message="Failed to load characters. Please check your connection and try again."
-        onRetry={onRetry}
-      />
-    )
+    return <ErrorMessage message={errorMessage} onRetry={onRetry} />
   }
 
   if (isLoading) {
     return (
-      <div
-        className={styles.skeletonGrid}
-        role="status"
-        aria-label="Loading characters"
-        aria-busy="true"
-      >
+      <div className={styles.grid} role="status" aria-label="Loading characters" aria-busy="true">
         {Array.from({ length: SKELETON_COUNT }).map((_, i) => (
           <Skeleton key={i} variant="rectangular" className={styles.skeletonCard} />
         ))}

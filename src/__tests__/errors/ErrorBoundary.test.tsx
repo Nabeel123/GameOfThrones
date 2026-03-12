@@ -1,7 +1,7 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest'
 import { screen, render } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import { ErrorBoundary } from '@/errors/ErrorBoundary'
+import { ErrorBoundary } from '@/components/organisms/ErrorBoundary'
 
 function BrokenComponent(): never {
   throw new Error('Test error')

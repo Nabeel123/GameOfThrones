@@ -3,7 +3,7 @@ import { screen, waitFor } from '@testing-library/react'
 import { http, HttpResponse } from 'msw'
 import { server } from '@/utils/mswServer'
 import { renderWithProviders } from '@/utils/testUtils'
-import { HouseMemberList } from '@/components/HouseMemberList'
+import { HouseMemberList } from '@/components/organisms/HouseMemberList'
 import { CHARACTERS_ENDPOINT } from '@/utils/constants'
 
 function renderList(family: string, excludeId: number) {
@@ -30,9 +30,7 @@ describe('HouseMemberList', () => {
   })
 
   it('uses UNKNOWN_FAMILY label when family is empty', async () => {
-    server.use(
-      http.get(CHARACTERS_ENDPOINT, () => HttpResponse.json([]))
-    )
+    server.use(http.get(CHARACTERS_ENDPOINT, () => HttpResponse.json([])))
     renderList('', 99)
     await waitFor(() =>
       expect(screen.getByText(/no other known house members/i)).toBeInTheDocument()

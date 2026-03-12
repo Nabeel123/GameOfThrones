@@ -1,7 +1,7 @@
 import { describe, it, expect } from 'vitest'
 import { renderHook, waitFor } from '@testing-library/react'
 import { useHouseMembers } from '@/hooks/useHouseMembers'
-import { createWrapper } from '@/utils/hookTestWrapper'
+import { createWrapper } from '@/utils/testUtils'
 
 describe('useHouseMembers', () => {
   it('returns house members excluding the current character', async () => {

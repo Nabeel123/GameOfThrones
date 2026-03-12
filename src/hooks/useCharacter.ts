@@ -1,24 +1,12 @@
 import { useEffect } from 'react'
-import { useQuery, useQueryClient } from '@tanstack/react-query'
-import { getAllCharacters } from '@/api/thronesApi'
-import { QUERY_KEYS, QUERY_CONFIG } from '@/utils/constants'
-import type { Character } from '@/types/character'
-import type { ApiError } from '@/api/apiClient'
+import { useQueryClient } from '@tanstack/react-query'
+import { useCharacters } from './useCharacters'
+import { QUERY_KEYS } from '@/utils/constants'
 
 export function useCharacter(id: number) {
   const queryClient = useQueryClient()
 
-  const {
-    data: allCharacters,
-    isLoading,
-    isError,
-    error,
-  } = useQuery<Character[], ApiError>({
-    queryKey: QUERY_KEYS.characters,
-    queryFn: getAllCharacters,
-    staleTime: QUERY_CONFIG.staleTime,
-    gcTime: QUERY_CONFIG.gcTime,
-  })
+  const { characters: allCharacters, isLoading, isError, error } = useCharacters()
 
   const character = allCharacters?.find(c => c.id === id)
   const notFound = !isLoading && !isError && character === undefined

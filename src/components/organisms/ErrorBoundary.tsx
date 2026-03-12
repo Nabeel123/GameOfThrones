@@ -1,5 +1,5 @@
 import { Component, type ReactNode, type ErrorInfo } from 'react'
-import { ErrorMessage } from '@/components/ui/ErrorMessage'
+import { ErrorMessage } from '@/components/atoms/ErrorMessage'
 
 interface Props {
   children: ReactNode

@@ -24,7 +24,6 @@ export async function apiFetch<T>(url: string, schema: ZodSchema<T>): Promise<T>
   try {
     response = await fetch(url, { signal: controller.signal })
   } catch (err) {
-    clearTimeout(timeoutId)
     if (err instanceof DOMException && err.name === 'AbortError') {
       throw new ApiError('timeout', `Request timed out after ${QUERY_CONFIG.fetchTimeout}ms`, undefined, err)
     }
@@ -47,9 +46,7 @@ export async function apiFetch<T>(url: string, schema: ZodSchema<T>): Promise<T>
   try {
     return schema.parse(json)
   } catch (err) {
-    if (err instanceof ZodError) {
-      throw new ApiError('validation', `Response validation failed: ${err.message}`, undefined, err)
-    }
-    throw new ApiError('validation', 'Response validation failed', undefined, err)
+    const detail = err instanceof ZodError ? `: ${err.message}` : ''
+    throw new ApiError('validation', `Response validation failed${detail}`, undefined, err)
   }
 }

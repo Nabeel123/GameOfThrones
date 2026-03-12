@@ -34,8 +34,9 @@ describe('HomePage', () => {
 
     await waitFor(() => expect(screen.getByText('Eddard Stark')).toBeInTheDocument())
 
-    const select = screen.getByRole('combobox', { name: /filter by house/i })
-    await user.selectOptions(select, 'House Stark')
+    const trigger = screen.getByRole('combobox', { name: /filter by house/i })
+    await user.click(trigger)
+    await user.click(screen.getByRole('option', { name: /house stark/i }))
 
     await waitFor(() => {
       expect(screen.getByText('Eddard Stark')).toBeInTheDocument()
@@ -51,11 +52,13 @@ describe('HomePage', () => {
 
     await waitFor(() => expect(screen.getByText('Eddard Stark')).toBeInTheDocument())
 
-    const select = screen.getByRole('combobox', { name: /filter by house/i })
-    await user.selectOptions(select, 'House Stark')
+    const trigger = screen.getByRole('combobox', { name: /filter by house/i })
+    await user.click(trigger)
+    await user.click(screen.getByRole('option', { name: /house stark/i }))
     await waitFor(() => expect(screen.queryByText('Daenerys Targaryen')).not.toBeInTheDocument())
 
-    await user.selectOptions(select, 'All Characters')
+    await user.click(trigger)
+    await user.click(screen.getByRole('option', { name: /all characters/i }))
     await waitFor(() => {
       expect(screen.getByText('Daenerys Targaryen')).toBeInTheDocument()
       expect(screen.getByText('Cersei Lannister')).toBeInTheDocument()
@@ -64,14 +67,13 @@ describe('HomePage', () => {
 
   it('shows empty message when no characters match filter', async () => {
     const user = userEvent.setup()
-    // Add a character with a unique family to test empty state indirectly
-    // We'll select a family that results in a real filter scenario
     renderWithProviders(<HomePage />)
 
     await waitFor(() => expect(screen.getByText('Eddard Stark')).toBeInTheDocument())
 
-    const select = screen.getByRole('combobox', { name: /filter by house/i })
-    await user.selectOptions(select, 'House Lannister')
+    const trigger = screen.getByRole('combobox', { name: /filter by house/i })
+    await user.click(trigger)
+    await user.click(screen.getByRole('option', { name: /house lannister/i }))
 
     await waitFor(() => {
       expect(screen.getByText('Cersei Lannister')).toBeInTheDocument()
@@ -80,9 +82,7 @@ describe('HomePage', () => {
   })
 
   it('shows error message when API fails', async () => {
-    server.use(
-      http.get(CHARACTERS_ENDPOINT, () => new HttpResponse(null, { status: 500 }))
-    )
+    server.use(http.get(CHARACTERS_ENDPOINT, () => new HttpResponse(null, { status: 500 })))
     renderWithProviders(<HomePage />)
     await waitFor(() => {
       expect(screen.getByRole('alert')).toBeInTheDocument()

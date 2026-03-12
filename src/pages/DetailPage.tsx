@@ -1,11 +1,10 @@
 import { useParams, Navigate } from 'react-router-dom'
-import { PageHeader } from '@/components/PageHeader'
-import { CharacterDetail } from '@/components/CharacterDetail'
-import { HouseMemberList } from '@/components/HouseMemberList'
-import { BackButton } from '@/components/ui/BackButton'
-import { Skeleton } from '@/components/ui/Skeleton'
-import { ErrorMessage } from '@/components/ui/ErrorMessage'
-import { ErrorBoundary } from '@/errors/ErrorBoundary'
+import { PageHeader } from '@/components/organisms/PageHeader'
+import { CharacterDetail } from '@/components/organisms/CharacterDetail'
+import { HouseMemberList } from '@/components/organisms/HouseMemberList'
+import { BackButton } from '@/components/atoms/BackButton'
+import { Skeleton } from '@/components/atoms/Skeleton'
+import { ErrorMessage } from '@/components/atoms/ErrorMessage'
 import { useCharacter } from '@/hooks/useCharacter'
 import styles from './DetailPage.module.css'
 
@@ -48,28 +47,24 @@ function DetailPageContent({ characterId }: { characterId: number }) {
       <PageHeader />
 
       <main className={styles.main} id="main-content">
-        <nav className={styles.nav} aria-label="Breadcrumb">
+        <div className={styles.nav}>
           <BackButton />
-        </nav>
+        </div>
 
-        <ErrorBoundary>
-          <div className={styles.content}>
-            {isError && (
-              <ErrorMessage
-                message={error?.message ?? 'Failed to load character details.'}
-              />
-            )}
+        <div className={styles.content}>
+          {isError && (
+            <ErrorMessage message={error?.message ?? 'Failed to load character details.'} />
+          )}
 
-            {isLoading && <DetailPageSkeleton />}
+          {isLoading && <DetailPageSkeleton />}
 
-            {character && (
-              <>
-                <CharacterDetail character={character} />
-                <HouseMemberList family={character.family} excludeId={character.id} />
-              </>
-            )}
-          </div>
-        </ErrorBoundary>
+          {character && (
+            <>
+              <CharacterDetail character={character} />
+              <HouseMemberList family={character.family} excludeId={character.id} />
+            </>
+          )}
+        </div>
       </main>
     </div>
   )

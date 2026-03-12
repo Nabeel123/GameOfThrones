@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest'
 import { screen, render, fireEvent } from '@testing-library/react'
-import { SafeImage } from '@/components/ui/SafeImage'
+import { SafeImage } from '@/components/atoms/SafeImage'
 
 describe('SafeImage', () => {
   it('renders an img element for a valid https URL', () => {
@@ -49,9 +49,7 @@ describe('SafeImage', () => {
   })
 
   it('applies className to img when provided', () => {
-    render(
-      <SafeImage src="https://example.com/image.jpg" alt="Test" className="img-class" />
-    )
+    render(<SafeImage src="https://example.com/image.jpg" alt="Test" className="img-class" />)
     const img = screen.getByRole('img', { name: 'Test' })
     expect(img).toHaveClass('img-class')
   })

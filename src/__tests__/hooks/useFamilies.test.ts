@@ -3,7 +3,7 @@ import { renderHook, waitFor } from '@testing-library/react'
 import { http, HttpResponse } from 'msw'
 import { server } from '@/utils/mswServer'
 import { useFamilies } from '@/hooks/useFamilies'
-import { createWrapper } from '@/utils/hookTestWrapper'
+import { createWrapper } from '@/utils/testUtils'
 import { CHARACTERS_ENDPOINT, UNKNOWN_FAMILY } from '@/utils/constants'
 
 describe('useFamilies', () => {

@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { classNames } from '@/utils/classNames'
 import styles from './SafeImage.module.css'
 
 interface SafeImageProps {
@@ -24,7 +25,7 @@ export function SafeImage({ src, alt, className, wrapperClassName }: SafeImagePr
   const showFallback = hasError || !safeSrc
 
   return (
-    <div className={[styles.wrapper, wrapperClassName].filter(Boolean).join(' ')}>
+    <div className={classNames(styles.wrapper, wrapperClassName)}>
       {showFallback ? (
         <div className={styles.fallback} role="img" aria-label={alt}>
           <svg
@@ -40,7 +41,7 @@ export function SafeImage({ src, alt, className, wrapperClassName }: SafeImagePr
         <img
           src={safeSrc}
           alt={alt}
-          className={[styles.img, className].filter(Boolean).join(' ')}
+          className={classNames(styles.img, className)}
           loading="lazy"
           decoding="async"
           onError={() => setHasError(true)}

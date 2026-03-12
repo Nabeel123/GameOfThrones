@@ -2,7 +2,7 @@ import { describe, it, expect } from 'vitest'
 import { renderHook, waitFor } from '@testing-library/react'
 import { useCharacter } from '@/hooks/useCharacter'
 import { mockCharacters } from '@/utils/mockData'
-import { createWrapper } from '@/utils/hookTestWrapper'
+import { createWrapper } from '@/utils/testUtils'
 
 describe('useCharacter', () => {
   it('returns a character by id after loading', async () => {

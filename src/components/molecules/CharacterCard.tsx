@@ -1,6 +1,6 @@
 import { memo } from 'react'
 import { Link } from 'react-router-dom'
-import { SafeImage } from './ui/SafeImage'
+import { SafeImage } from '../atoms/SafeImage'
 import type { Character } from '@/types/character'
 import styles from './CharacterCard.module.css'
 

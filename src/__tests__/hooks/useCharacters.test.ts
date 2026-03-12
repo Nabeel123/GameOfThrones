@@ -5,7 +5,7 @@ import { server } from '@/utils/mswServer'
 import { useCharacters } from '@/hooks/useCharacters'
 import { mockCharacters } from '@/utils/mockData'
 import { CHARACTERS_ENDPOINT } from '@/utils/constants'
-import { createWrapper } from '@/utils/hookTestWrapper'
+import { createWrapper } from '@/utils/testUtils'
 
 describe('useCharacters', () => {
   it('returns loading state initially', () => {

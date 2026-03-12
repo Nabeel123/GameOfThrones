@@ -1,7 +1,7 @@
 import { describe, it, expect } from 'vitest'
 import { renderHook, waitFor } from '@testing-library/react'
 import { useFilteredCharacters } from '@/hooks/useFilteredCharacters'
-import { createWrapper } from '@/utils/hookTestWrapper'
+import { createWrapper } from '@/utils/testUtils'
 import { ALL_FAMILIES_OPTION } from '@/utils/constants'
 
 describe('useFilteredCharacters', () => {

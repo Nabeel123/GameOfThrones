@@ -55,3 +55,18 @@ export function renderWithProviders(
 
 export { screen, waitFor, fireEvent, act } from '@testing-library/react'
 export { default as userEvent } from '@testing-library/user-event'
+
+// Hook test wrapper — wraps renderHook calls with QueryClient + MemoryRouter
+export function createWrapper() {
+  const queryClient = createTestQueryClient()
+
+  return function Wrapper({ children }: { children: React.ReactNode }) {
+    return (
+      <QueryClientProvider client={queryClient}>
+        <MemoryRouter future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
+          {children}
+        </MemoryRouter>
+      </QueryClientProvider>
+    )
+  }
+}
