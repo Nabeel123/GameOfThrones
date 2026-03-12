@@ -4,12 +4,15 @@ import { QUERY_CONFIG } from '@/config/api'
 
 type ApiErrorType = 'network' | 'timeout' | 'parse' | 'validation' | 'server'
 
+/** Caught exception or error (avoids `unknown`) */
+type CaughtError = Error | object
+
 export class ApiError extends Error {
   constructor(
     public readonly type: ApiErrorType,
     message: string,
     public readonly status?: number,
-    public readonly cause?: unknown
+    public readonly cause?: CaughtError
   ) {
     super(message)
     this.name = 'ApiError'
@@ -32,7 +35,7 @@ export async function apiFetch<T>(url: string, schema: ZodSchema<T>): Promise<T>
         err
       )
     }
-    throw new ApiError('network', 'Network request failed', undefined, err)
+    throw new ApiError('network', 'Network request failed', undefined, err as CaughtError)
   } finally {
     clearTimeout(timeoutId)
   }
@@ -41,17 +44,23 @@ export async function apiFetch<T>(url: string, schema: ZodSchema<T>): Promise<T>
     throw new ApiError('server', `Server responded with ${response.status}`, response.status)
   }
 
-  let json: unknown
+  type JsonLike = object | string | number | boolean | null
+  let json: JsonLike
   try {
-    json = await response.json()
+    json = (await response.json()) as JsonLike
   } catch (err) {
-    throw new ApiError('parse', 'Failed to parse response as JSON', undefined, err)
+    throw new ApiError('parse', 'Failed to parse response as JSON', undefined, err as CaughtError)
   }
 
   try {
     return schema.parse(json)
   } catch (err) {
     const detail = err instanceof ZodError ? `: ${err.message}` : ''
-    throw new ApiError('validation', `Response validation failed${detail}`, undefined, err)
+    throw new ApiError(
+      'validation',
+      `Response validation failed${detail}`,
+      undefined,
+      err as CaughtError
+    )
   }
 }

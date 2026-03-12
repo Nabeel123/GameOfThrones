@@ -1,5 +1,8 @@
 import { z } from 'zod'
 
+/** Unvalidated data from JSON/API (object, array, or primitives) */
+type JsonLike = object | string | number | boolean | null
+
 const httpsUrlSchema = z.string().refine(
   val => {
     if (val === '') return true
@@ -30,10 +33,10 @@ export type Character = z.infer<typeof characterSchema>
 
 export const characterArraySchema = z.array(characterSchema)
 
-export function parseCharacter(data: unknown): Character {
+export function parseCharacter(data: JsonLike): Character {
   return characterSchema.parse(data)
 }
 
-export function parseCharacters(data: unknown): Character[] {
+export function parseCharacters(data: JsonLike): Character[] {
   return characterArraySchema.parse(data)
 }

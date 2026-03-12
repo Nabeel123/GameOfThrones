@@ -27,8 +27,10 @@ export default defineConfig({
         branches: 70,
         statements: 80,
       },
+      include: ['src/**'],
       exclude: [
         'node_modules/',
+        '**/.claude/**',
         'src/utils/testSetup.ts',
         'src/utils/testUtils.tsx',
         'src/utils/hookTestWrapper.tsx',
@@ -38,6 +40,7 @@ export default defineConfig({
         'e2e/',
         'dist/',
         'src/types/',
+        'src/__tests__/**',
       ],
     },
   },

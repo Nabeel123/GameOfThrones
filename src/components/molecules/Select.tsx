@@ -43,6 +43,7 @@ export function Select({
         role="combobox"
         aria-haspopup="listbox"
         aria-expanded={isOpen}
+        aria-controls={`${id}-listbox`}
         aria-labelledby={`${id}-label`}
         className={styles.trigger}
         onClick={() => setIsOpen(prev => !prev)}
@@ -61,7 +62,12 @@ export function Select({
         </svg>
       </button>
       {isOpen && (
-        <ul role="listbox" aria-labelledby={`${id}-label`} className={styles.dropdown}>
+        <ul
+          id={`${id}-listbox`}
+          role="listbox"
+          aria-labelledby={`${id}-label`}
+          className={styles.dropdown}
+        >
           {options.map(option => (
             <li
               key={option}
