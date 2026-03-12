@@ -4,7 +4,7 @@ import { http, HttpResponse } from 'msw'
 import { server } from '@/utils/mswServer'
 import { useCharacters } from '@/hooks/useCharacters'
 import { mockCharacters } from '@/utils/mockData'
-import { CHARACTERS_ENDPOINT } from '@/utils/constants'
+import { CHARACTERS_ENDPOINT } from '@/config/api'
 import { createWrapper } from '@/utils/testUtils'
 
 describe('useCharacters', () => {
@@ -22,9 +22,7 @@ describe('useCharacters', () => {
   })
 
   it('returns error state when API fails', async () => {
-    server.use(
-      http.get(CHARACTERS_ENDPOINT, () => new HttpResponse(null, { status: 500 }))
-    )
+    server.use(http.get(CHARACTERS_ENDPOINT, () => new HttpResponse(null, { status: 500 })))
     const { result } = renderHook(() => useCharacters(), { wrapper: createWrapper() })
     await waitFor(() => expect(result.current.isError).toBe(true))
     expect(result.current.error).toBeTruthy()

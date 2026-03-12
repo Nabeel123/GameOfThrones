@@ -4,7 +4,7 @@ import { http, HttpResponse } from 'msw'
 import { server } from '@/utils/mswServer'
 import { renderWithProviders } from '@/utils/testUtils'
 import { HouseMemberList } from '@/components/organisms/HouseMemberList'
-import { CHARACTERS_ENDPOINT } from '@/utils/constants'
+import { CHARACTERS_ENDPOINT } from '@/config/api'
 
 function renderList(family: string, excludeId: number) {
   return renderWithProviders(<HouseMemberList family={family} excludeId={excludeId} />)

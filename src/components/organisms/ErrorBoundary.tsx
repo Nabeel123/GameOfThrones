@@ -1,5 +1,6 @@
 import { Component, type ReactNode, type ErrorInfo } from 'react'
 import { ErrorMessage } from '@/components/atoms/ErrorMessage'
+import { MESSAGES } from '@/config/messages'
 
 interface Props {
   children: ReactNode
@@ -36,12 +37,7 @@ export class ErrorBoundary extends Component<Props, State> {
     if (this.state.hasError) {
       if (this.props.fallback) return this.props.fallback
 
-      return (
-        <ErrorMessage
-          message="Something went wrong. Please try again."
-          onRetry={this.handleReset}
-        />
-      )
+      return <ErrorMessage message={MESSAGES.errors.generic} onRetry={this.handleReset} />
     }
 
     return this.props.children

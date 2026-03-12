@@ -5,7 +5,7 @@ import { http, HttpResponse } from 'msw'
 import { server } from '@/utils/mswServer'
 import { renderWithProviders } from '@/utils/testUtils'
 import { HomePage } from '@/pages/HomePage'
-import { CHARACTERS_ENDPOINT } from '@/utils/constants'
+import { CHARACTERS_ENDPOINT } from '@/config/api'
 
 describe('HomePage', () => {
   it('shows loading skeletons initially', () => {

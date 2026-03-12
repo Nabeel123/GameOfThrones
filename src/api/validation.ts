@@ -13,7 +13,7 @@ const httpsUrlSchema = z.string().refine(
   { message: 'imageUrl must be a valid HTTPS URL' }
 )
 
-const characterSchema = z
+export const characterSchema = z
   .object({
     id: z.number(),
     firstName: z.string(),

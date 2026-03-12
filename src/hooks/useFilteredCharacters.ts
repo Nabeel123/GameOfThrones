@@ -1,16 +1,15 @@
 import { useMemo } from 'react'
 import { useCharacters } from './useCharacters'
-import { ALL_FAMILIES_OPTION } from '@/utils/constants'
-import type { Character } from '@/api/validation'
+import { filterByFamily } from '@/utils/characterFilters'
+import { ALL_FAMILIES_OPTION } from '@/config/ui'
 
 export function useFilteredCharacters(selectedFamily: string) {
   const { characters, isLoading, isError, refetch } = useCharacters()
 
-  const filteredCharacters = useMemo<Character[]>(() => {
-    if (!characters) return []
-    if (!selectedFamily || selectedFamily === ALL_FAMILIES_OPTION) return characters
-    return characters.filter(c => c.family === selectedFamily)
-  }, [characters, selectedFamily])
+  const filteredCharacters = useMemo(
+    () => filterByFamily(characters, selectedFamily, { allOption: ALL_FAMILIES_OPTION }),
+    [characters, selectedFamily]
+  )
 
   return { filteredCharacters, isLoading, isError, refetch }
 }

@@ -1,6 +1,6 @@
 import type { ZodSchema } from 'zod'
 import { ZodError } from 'zod'
-import { QUERY_CONFIG } from '@/utils/constants'
+import { QUERY_CONFIG } from '@/config/api'
 
 type ApiErrorType = 'network' | 'timeout' | 'parse' | 'validation' | 'server'
 
@@ -25,7 +25,12 @@ export async function apiFetch<T>(url: string, schema: ZodSchema<T>): Promise<T>
     response = await fetch(url, { signal: controller.signal })
   } catch (err) {
     if (err instanceof DOMException && err.name === 'AbortError') {
-      throw new ApiError('timeout', `Request timed out after ${QUERY_CONFIG.fetchTimeout}ms`, undefined, err)
+      throw new ApiError(
+        'timeout',
+        `Request timed out after ${QUERY_CONFIG.fetchTimeout}ms`,
+        undefined,
+        err
+      )
     }
     throw new ApiError('network', 'Network request failed', undefined, err)
   } finally {

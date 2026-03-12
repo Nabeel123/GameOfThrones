@@ -2,7 +2,7 @@ import { describe, it, expect } from 'vitest'
 import { renderHook, waitFor } from '@testing-library/react'
 import { useFilteredCharacters } from '@/hooks/useFilteredCharacters'
 import { createWrapper } from '@/utils/testUtils'
-import { ALL_FAMILIES_OPTION } from '@/utils/constants'
+import { ALL_FAMILIES_OPTION } from '@/config/ui'
 
 describe('useFilteredCharacters', () => {
   it('returns all characters when filter is ALL_FAMILIES_OPTION', async () => {

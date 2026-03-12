@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query'
 import { getAllCharacters } from '@/api/thronesApi'
-import { QUERY_KEYS } from '@/utils/constants'
+import { QUERY_KEYS } from '@/config/queryKeys'
 import type { Character } from '@/api/validation'
 import type { ApiError } from '@/api/apiClient'
 

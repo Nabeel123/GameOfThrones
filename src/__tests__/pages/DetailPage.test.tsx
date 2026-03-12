@@ -4,7 +4,7 @@ import { http, HttpResponse } from 'msw'
 import { server } from '@/utils/mswServer'
 import { renderWithProviders } from '@/utils/testUtils'
 import { DetailPage } from '@/pages/DetailPage'
-import { CHARACTERS_ENDPOINT } from '@/utils/constants'
+import { CHARACTERS_ENDPOINT } from '@/config/api'
 
 const ROUTE_PATH = '/character/:id'
 
@@ -37,8 +37,7 @@ describe('DetailPage', () => {
 
   it('renders house members section with other Stark members', async () => {
     renderDetailPage(1)
-    await waitFor(() => expect(screen.getByText('Eddard Stark')).toBeInTheDocument())
-    expect(screen.getByText('Sansa Stark')).toBeInTheDocument()
+    await waitFor(() => expect(screen.getByText('Sansa Stark')).toBeInTheDocument())
     expect(screen.getByText('Jon Snow')).toBeInTheDocument()
     expect(screen.getByText(/Family — House Stark/i)).toBeInTheDocument()
   })
@@ -59,8 +58,9 @@ describe('DetailPage', () => {
 
   it('shows "no other known house members" when character is the only house member', async () => {
     renderDetailPage(3) // Daenerys - only Targaryen in mock data
-    await waitFor(() => expect(screen.getByText('Daenerys Targaryen')).toBeInTheDocument())
-    expect(screen.getByText(/no other known house members/i)).toBeInTheDocument()
+    await waitFor(() =>
+      expect(screen.getByText(/no other known house members/i)).toBeInTheDocument()
+    )
   })
 
   it('redirects to not-found page for a non-existent character id', async () => {

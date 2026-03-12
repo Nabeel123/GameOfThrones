@@ -78,9 +78,7 @@ describe('apiFetch', () => {
   })
 
   it('ApiError is instanceof Error', async () => {
-    server.use(
-      http.get(TEST_URL, () => new HttpResponse(null, { status: 500 }))
-    )
+    server.use(http.get(TEST_URL, () => new HttpResponse(null, { status: 500 })))
     try {
       await apiFetch(TEST_URL, characterArraySchema)
     } catch (err) {
@@ -100,9 +98,11 @@ describe('apiFetch', () => {
 
     // Mock fetch to throw an AbortError immediately
     const originalFetch = global.fetch
-    global.fetch = vi.fn().mockRejectedValue(
-      Object.assign(new DOMException('The operation was aborted', 'AbortError'), {})
-    )
+    global.fetch = vi
+      .fn()
+      .mockRejectedValue(
+        Object.assign(new DOMException('The operation was aborted', 'AbortError'), {})
+      )
 
     try {
       await expect(apiFetch(TEST_URL, characterArraySchema)).rejects.toMatchObject({
@@ -114,13 +114,13 @@ describe('apiFetch', () => {
   })
 
   it('throws ApiError with type "validation" for non-ZodError schema parse failure', async () => {
-    server.use(
-      http.get(TEST_URL, () => HttpResponse.json([]))
-    )
+    server.use(http.get(TEST_URL, () => HttpResponse.json([])))
 
     // Use a schema whose parse method throws a non-ZodError
     const badSchema = {
-      parse: () => { throw new TypeError('unexpected type error') },
+      parse: () => {
+        throw new TypeError('unexpected type error')
+      },
     }
 
     await expect(apiFetch(TEST_URL, badSchema as never)).rejects.toMatchObject({

@@ -1,6 +1,6 @@
 import { Select } from './Select'
 import { useFamilies } from '@/hooks/useFamilies'
-import { ALL_FAMILIES_OPTION } from '@/utils/constants'
+import { ALL_FAMILIES_OPTION } from '@/config/ui'
 
 interface FamilyFilterProps {
   selectedFamily: string

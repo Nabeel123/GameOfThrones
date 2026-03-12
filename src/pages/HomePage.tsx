@@ -3,7 +3,7 @@ import { PageHeader } from '@/components/organisms/PageHeader'
 import { FamilyFilter } from '@/components/molecules/FamilyFilter'
 import { CharacterGrid } from '@/components/organisms/CharacterGrid'
 import { useFilteredCharacters } from '@/hooks/useFilteredCharacters'
-import { ALL_FAMILIES_OPTION } from '@/utils/constants'
+import { ALL_FAMILIES_OPTION } from '@/config/ui'
 import styles from './HomePage.module.css'
 
 export function HomePage() {

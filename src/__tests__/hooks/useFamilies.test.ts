@@ -4,7 +4,8 @@ import { http, HttpResponse } from 'msw'
 import { server } from '@/utils/mswServer'
 import { useFamilies } from '@/hooks/useFamilies'
 import { createWrapper } from '@/utils/testUtils'
-import { CHARACTERS_ENDPOINT, UNKNOWN_FAMILY } from '@/utils/constants'
+import { CHARACTERS_ENDPOINT } from '@/config/api'
+import { UNKNOWN_FAMILY } from '@/config/ui'
 
 describe('useFamilies', () => {
   it('returns unique family names sorted alphabetically', async () => {

@@ -14,14 +14,9 @@ export default defineConfig({
   },
   test: {
     globals: true,
-    environment: 'jsdom',
+    environment: 'happy-dom',
     include: ['src/**/*.{test,spec}.{ts,tsx}'],
     exclude: ['node_modules', 'e2e', 'dist'],
-    environmentOptions: {
-      jsdom: {
-        resources: 'usable',
-      },
-    },
     setupFiles: ['./src/utils/testSetup.ts'],
     coverage: {
       provider: 'v8',

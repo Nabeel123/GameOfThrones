@@ -36,9 +36,7 @@ describe('parseCharacter', () => {
   })
 
   it('rejects javascript: protocol in imageUrl (XSS vector)', () => {
-    expect(() =>
-      parseCharacter({ ...validCharacter, imageUrl: 'javascript:alert(1)' })
-    ).toThrow()
+    expect(() => parseCharacter({ ...validCharacter, imageUrl: 'javascript:alert(1)' })).toThrow()
   })
 
   it('rejects http: imageUrl (non-HTTPS)', () => {

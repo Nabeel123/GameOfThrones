@@ -35,6 +35,3 @@ You will be provided some early mocks describing the look and feel and also some
 
 ![img.png](assets/wires_mobile.png)
 <em>Mobile view</em>
-
-
-
