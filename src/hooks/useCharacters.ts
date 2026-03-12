@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query'
 import { getAllCharacters } from '@/api/thronesApi'
 import { QUERY_KEYS } from '@/utils/constants'
-import type { Character } from '@/types/character'
+import type { Character } from '@/api/validation'
 import type { ApiError } from '@/api/apiClient'
 
 export function useCharacters() {

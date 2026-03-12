@@ -1,7 +1,7 @@
 import { useMemo } from 'react'
 import { useCharacters } from './useCharacters'
 import { ALL_FAMILIES_OPTION } from '@/utils/constants'
-import type { Character } from '@/types/character'
+import type { Character } from '@/api/validation'
 
 export function useFilteredCharacters(selectedFamily: string) {
   const { characters, isLoading, isError, refetch } = useCharacters()

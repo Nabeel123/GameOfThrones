@@ -1,7 +1,7 @@
 import { memo } from 'react'
 import { Link } from 'react-router-dom'
 import { SafeImage } from '../atoms/SafeImage'
-import type { Character } from '@/types/character'
+import type { Character } from '@/api/validation'
 import styles from './CharacterCard.module.css'
 
 interface CharacterCardProps {

@@ -1,5 +1,5 @@
 import { SafeImage } from '../atoms/SafeImage'
-import type { Character } from '@/types/character'
+import type { Character } from '@/api/validation'
 import styles from './CharacterDetail.module.css'
 
 interface CharacterDetailProps {

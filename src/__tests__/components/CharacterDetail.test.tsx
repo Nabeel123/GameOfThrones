@@ -1,7 +1,7 @@
 import { describe, it, expect } from 'vitest'
 import { screen, render } from '@testing-library/react'
 import { CharacterDetail } from '@/components/organisms/CharacterDetail'
-import type { Character } from '@/types/character'
+import type { Character } from '@/api/validation'
 
 const mockCharacter: Character = {
   id: 1,

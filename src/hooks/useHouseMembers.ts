@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
 import { useCharacters } from './useCharacters'
-import type { Character } from '@/types/character'
+import type { Character } from '@/api/validation'
 
 export function useHouseMembers(family: string, excludeId: number) {
   const { characters, isLoading, isError } = useCharacters()

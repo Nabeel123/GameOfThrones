@@ -1,5 +1,4 @@
 import { z } from 'zod'
-import type { Character } from '@/types/character'
 
 const httpsUrlSchema = z.string().refine(
   val => {
@@ -26,6 +25,8 @@ const characterSchema = z
     imageUrl: httpsUrlSchema,
   })
   .strip()
+
+export type Character = z.infer<typeof characterSchema>
 
 export const characterArraySchema = z.array(characterSchema)
 

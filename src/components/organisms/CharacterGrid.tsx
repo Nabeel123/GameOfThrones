@@ -1,7 +1,7 @@
 import { CharacterCard } from '../molecules/CharacterCard'
 import { Skeleton } from '../atoms/Skeleton'
 import { ErrorMessage } from '../atoms/ErrorMessage'
-import type { Character } from '@/types/character'
+import type { Character } from '@/api/validation'
 import styles from './CharacterGrid.module.css'
 
 interface CharacterGridProps {
