@@ -60,8 +60,10 @@ test.describe('Character detail navigation', () => {
     await expect(page).toHaveURL(/\/character\/\d+/)
     await page.waitForSelector('dl', { timeout: 10000 })
 
-    const backLink = page.getByRole('link', { name: /back to all characters/i })
+    // BackButton's accessible name is "All Characters" (the arrow is aria-hidden)
+    const backLink = page.getByRole('link', { name: /^all characters$/i })
     await backLink.click()
     await expect(page).toHaveURL('/')
+    await expect(page.getByRole('region', { name: 'Characters list' })).toBeVisible()
   })
 })
