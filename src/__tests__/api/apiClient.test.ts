@@ -88,28 +88,17 @@ describe('apiFetch', () => {
   })
 
   it('throws ApiError with type "timeout" when request is aborted', async () => {
-    server.use(
-      http.get(TEST_URL, async () => {
-        // Simulate abort by never responding — we'll trigger it via AbortController mock
-        await new Promise(() => {}) // Never resolves
-        return HttpResponse.json([])
-      })
+    vi.stubGlobal(
+      'fetch',
+      vi.fn().mockRejectedValue(new DOMException('The operation was aborted', 'AbortError'))
     )
-
-    // Mock fetch to throw an AbortError immediately
-    const originalFetch = global.fetch
-    global.fetch = vi
-      .fn()
-      .mockRejectedValue(
-        Object.assign(new DOMException('The operation was aborted', 'AbortError'), {})
-      )
 
     try {
       await expect(apiFetch(TEST_URL, characterArraySchema)).rejects.toMatchObject({
         type: 'timeout',
       })
     } finally {
-      global.fetch = originalFetch
+      vi.unstubAllGlobals()
     }
   })
 
